@@ -73,7 +73,7 @@ abstract class BigEndianBuffer {
 	 * 获取1字节 unpack|c
 	 * @return byte
 	 */
-	public function readChar() {
+	public function readByte() {
 		$bytes = $this->readBytes ( 1 );
 		$result = unpack ( 'c', $bytes );
 		return $result [1];
@@ -84,7 +84,7 @@ abstract class BigEndianBuffer {
 	 * 写入1字节  pack|C
 	 * @param char $char
 	 */
-	public function writeChar($char) {
+	public function writeByte($char) {
 		$this->writeBytes ( pack ( 'c', $char ) );
 	}
 	/**

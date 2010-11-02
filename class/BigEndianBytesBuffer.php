@@ -14,7 +14,7 @@ class BigEndianBytesBuffer extends BigEndianBuffer {
 	private $bytes;
 	private $readerIndex = 0;
 	private $writeIndex = 0;
-	public function __construct($bytes) {
+	public function __construct($bytes='') {
 		$this->bytes = $bytes;
 		$this->writeIndex += strlen ( $bytes );
 	}
