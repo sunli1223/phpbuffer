@@ -9,7 +9,7 @@
  * @link       http://sunli.cnblogs.com
  */
 
-require dirname ( __FILE__ ) . './BigEndianBuffer.php';
+require_once  dirname ( __FILE__ ) . '/BigEndianBuffer.php';
 class BigEndianBytesBuffer extends BigEndianBuffer {
 	private $bytes;
 	private $readerIndex = 0;

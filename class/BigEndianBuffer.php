@@ -5,7 +5,7 @@
  * Copyright (c) 2010 sunli <sunli1223ATgmail.com>
  * 
  * @version    $Id$
- * @author     sunli立 <sunli1223ATgmail.com>
+ * @author     sunli <sunli1223ATgmail.com>
  * @link       http://sunli.cnblogs.com
  */
 abstract class BigEndianBuffer {
@@ -36,9 +36,11 @@ abstract class BigEndianBuffer {
 		$result = $result [1];
 		return $result;
 	}
+	
 	/**
 	 * Gets $len bytes at the current readerIndex and increases the readerIndex by 4 in this buffer.
 	 *
+	 * @param int $len
 	 * @return bytes
 	 */
 	public abstract function readBytes($len);
@@ -73,9 +75,14 @@ abstract class BigEndianBuffer {
 	 * 获取1字节 unpack|c
 	 * @return byte
 	 */
-	public function readByte() {
+	public function readChar() {
 		$bytes = $this->readBytes ( 1 );
 		$result = unpack ( 'c', $bytes );
+		return $result [1];
+	}
+	public function readUnsignedChar() {
+		$bytes = $this->readBytes ( 1 );
+		$result = unpack ( 'C', $bytes );
 		return $result [1];
 	}
 	public abstract function writeBytes($bytes);
@@ -84,7 +91,7 @@ abstract class BigEndianBuffer {
 	 * 写入1字节  pack|C
 	 * @param char $char
 	 */
-	public function writeByte($char) {
+	public function writeChar($char) {
 		$this->writeBytes ( pack ( 'c', $char ) );
 	}
 	/**
@@ -113,12 +120,14 @@ abstract class BigEndianBuffer {
 	 * @param int $num
 	 */
 	public function writeIntArray($nums) {
-		$len=count($nums);
-		$format[]=str_repeat('N',$len);
-		$args=array (str_repeat('N',$len),$nums);
-		call_user_func_array('pack',$args);
-		$this->writeBytes ($args);
-	//	$this->writeBytes ( pack ( str_repeat('N',$len), $num ) );
+		$len = count ( $nums );
+		$format [] = str_repeat ( 'N', $len );
+		$args = array (
+				str_repeat ( 'N', $len ), 
+				$nums );
+		call_user_func_array ( 'pack', $args );
+		$this->writeBytes ( $args );
+		//	$this->writeBytes ( pack ( str_repeat('N',$len), $num ) );
 	}
 	/**
 	 * 写入long
